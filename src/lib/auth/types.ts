@@ -1,0 +1,17 @@
+export type UserRole = "studioleiter" | "mitarbeiter"
+
+export type Permission =
+  | "consumables.create"
+  | "consumables.edit"
+  | "consumables.delete"
+  | "machines.create"
+  | "machines.edit"
+  | "machines.delete"
+  | "tasks.assign"
+  | "tasks.manage_templates"
+  | "employees.view"
+  | "classes.manage"
+  | "contracts.manage"
+  | "finances.view"
+  | "reports.view"
+  | "settings.manage"

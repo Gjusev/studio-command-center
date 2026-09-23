@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   STUDIO COMMAND CENTER — INDUSTRIAL ATHLETIC
+   Design System: Charcoal + Electric Lime
+   ======================================== */
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #333;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@layer base {
+    :root {
+        /* Light Mode — warm white with lime accent */
+        --background: 60 10% 98%;
+        --foreground: 0 0% 9%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 9%;
+        --primary: 79 91% 37%;
+        --primary-foreground: 0 0% 9%;
+        --secondary: 60 5% 93%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 60 5% 93%;
+        --muted-foreground: 0 0% 40%;
+        --accent: 60 5% 93%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 20 6% 90%;
+        --input: 20 6% 90%;
+        --ring: 79 91% 37%;
+        --radius: 0.5rem;
+
+        --lime: #65A30D;
+        --lime-dark: #4D7C0F;
+        --surface: #FAFAF9;
+        --surface-raised: #FFFFFF;
+        --surface-overlay: #F5F5F4;
+    }
+
+    .dark {
+        /* Dark Mode — deep charcoal with electric lime */
+        --background: 0 0% 4%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 7%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 7%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 79 100% 55%;
+        --primary-foreground: 0 0% 4%;
+        --secondary: 0 0% 12%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 12%;
+        --muted-foreground: 0 0% 46%;
+        --accent: 0 0% 15%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 63% 55%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 15%;
+        --input: 0 0% 15%;
+        --ring: 79 100% 55%;
+
+        --lime: #BEFF29;
+        --lime-dark: #9BE012;
+        --surface: #0A0A0A;
+        --surface-raised: #141414;
+        --surface-overlay: #1A1A1A;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: var(--font-body), 'DM Sans', system-ui, sans-serif;
+    }
+}
+
+@layer components {
+    /* Glass header effect */
+    .glass-header {
+        background: hsla(var(--background) / 0.8);
+        backdrop-filter: blur(16px) saturate(180%);
+        border-bottom: 1px solid hsl(var(--border));
+    }
+
+    .dark .glass-header {
+        background: rgba(10, 10, 10, 0.8);
+    }
+
+    /* Neon status indicators */
+    .neon-green {
+        box-shadow: 0 0 8px var(--lime), 0 0 4px var(--lime);
+    }
+
+    .neon-red {
+        box-shadow: 0 0 8px hsl(0, 63%, 55%), 0 0 4px hsl(0, 63%, 55%);
+    }
+
+    .neon-yellow {
+        box-shadow: 0 0 8px hsl(45, 85%, 55%), 0 0 4px hsl(45, 85%, 55%);
+    }
+
+    /* Industrial accent border — left highlight */
+    .accent-border-left {
+        border-left: 3px solid var(--lime);
+    }
+
+    /* Heading gradient for display text */
+    .text-gradient-lime {
+        color: var(--lime);
+    }
+
+    /* Subtle grid background */
+    .bg-grid {
+        background-image:
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 64px 64px;
+    }
+
+    .bg-grid-light {
+        background-image:
+            linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+        background-size: 64px 64px;
+    }
+
+    /* Noise texture overlay */
+    .noise-overlay::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Angled section divider */
+    .clip-angle {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 48px), 0 100%);
+    }
+
+    .clip-angle-reverse {
+        clip-path: polygon(0 48px, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* Status dot */
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .status-dot-green {
+        background: var(--lime);
+        box-shadow: 0 0 6px var(--lime);
+    }
+
+    .status-dot-red {
+        background: hsl(0, 63%, 55%);
+        box-shadow: 0 0 6px hsl(0, 63%, 55%);
+    }
+
+    .status-dot-yellow {
+        background: hsl(45, 85%, 55%);
+        box-shadow: 0 0 6px hsl(45, 85%, 55%);
+    }
+
+    /* Marquee ticker */
+    .marquee-track {
+        display: flex;
+        animation: marquee 30s linear infinite;
+    }
+
+    .marquee-track:hover {
+        animation-play-state: paused;
+    }
+}
+
+@layer utilities {
+    /* Text balance for headings */
+    .text-balance {
+        text-wrap: balance;
+    }
+}
