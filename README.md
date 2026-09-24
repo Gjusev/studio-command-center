@@ -12,7 +12,7 @@
 
 ![Studio Command Center dashboard with synthetic members, finances, tasks and inventory data](docs/screenshots/dashboard.png)
 
-[▶ 18s demo video](docs/screenshots/brag.mp4) — the app in motion.
+[![18s demo video — click to play](docs/screenshots/brag-poster.png)](docs/screenshots/brag.mp4)
 
 A studio operations application for inventory, equipment maintenance, staff tasks, members, classes and financial summaries. Next.js server actions connect a German-language interface to PostgreSQL and Better Auth.
 
