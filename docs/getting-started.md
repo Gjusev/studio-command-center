@@ -1,51 +1,66 @@
 # Getting started
 
+[← Documentation](README.md) · [Architecture](architecture.md)
+
 ## Requirements
 
-- Bun ≥ 1.0
-- PostgreSQL ≥ 14 (a dedicated local database)
+- Bun, installed locally.
+- PostgreSQL 14+ with a dedicated, empty local database.
+- Permission to create the application's schema and tables in that database.
 
-## Setup
+## Configure
 
 ```bash
-git clone https://github.com/Gjusev/studio_manager.git
-cd studio_manager
 bun install --frozen-lockfile
 cp .env.example .env
-# Set DATABASE_URL to your local database
-# Generate a BETTER_AUTH_SECRET (32+ random chars)
-bun run db:migrate   # base schema + module schemas, idempotent
-bun run db:demo      # synthetic business records
-bun run dev          # http://localhost:3000
 ```
 
-The sign-in page offers demo buttons when `NEXT_PUBLIC_DEMO_MODE=true`
-(the `.env.example` default). Demo mode is meant for demonstration data
-only. `bun run db:demo` writes synthetic consumables, machines, tasks,
-members, classes and finance records to the configured database.
+On PowerShell, `Copy-Item .env.example .env` is equivalent. Edit `.env`:
 
-## Demo users
+| Variable | Purpose |
+| :--- | :--- |
+| `DATABASE_URL` | Connection string for the dedicated local PostgreSQL database |
+| `BETTER_AUTH_SECRET` | Random signing secret, at least 32 characters |
+| `BETTER_AUTH_URL` | Authentication origin; `http://localhost:3000` locally |
+| `NEXT_PUBLIC_APP_URL` | Application origin; `http://localhost:3000` locally |
+| `NEXT_PUBLIC_DEMO_MODE` | Enables demonstration controls; sample value is `true` |
 
-With the dev server running:
+Generate a local signing secret with:
 
 ```bash
-bun scripts/create-e2e-test-data.mjs
+bun -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
-Creates `admin@teststudio.de` / `TestPass123!` (Studioleiter) and
-`mitarbeiter@teststudio.de` / `TestPass123!` (Mitarbeiter) through the real
-sign-up endpoint.
+## Bootstrap and run
+
+```bash
+bun run db:migrate
+bun run db:demo
+bun run dev
+```
+
+Open [localhost:3000](http://localhost:3000). Use the demo sign-in controls
+with the synthetic seed. The database must already exist: the migration
+runner applies the base and module schemas, not database provisioning.
+
+The seed writes business records. Use only a dedicated demonstration database.
+The migration runner is a bootstrap tool, not a versioned upgrade system;
+do not treat rerunning it as a production migration plan.
 
 ## Checks
 
 ```bash
 bun run lint
-bun run test:e2e   # Playwright; app and test users required
 ```
 
-## Verification notes
+For browser tests, keep the development server running, then in another terminal:
 
-- `db:migrate` is idempotent; re-running reports already-applied parts.
-- The schema bootstrap and module schemas are applied in one command; a
-  dedicated migration tool for upgrades of existing installations is a
-  documented gap — see [architecture.md](architecture.md#current-boundaries).
+```bash
+bun scripts/create-e2e-test-data.mjs
+bun run test:e2e
+```
+
+These commands create synthetic test accounts and exercise the running app.
+They need a browser installed for Playwright and the dedicated local database.
+See [current boundaries](architecture.md#current-boundaries) before adapting
+the project to real studio operations.
