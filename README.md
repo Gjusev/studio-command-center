@@ -30,8 +30,8 @@ Stock shortages, broken equipment and unfinished tasks are easy to lose across c
 Requires Bun and a dedicated local PostgreSQL database (14+).
 
 ```bash
-git clone https://github.com/Gjusev/studio_manager.git
-cd studio_manager
+git clone https://github.com/Gjusev/studio-command-center.git
+cd studio-command-center
 bun install --frozen-lockfile
 cp .env.example .env
 # Set DATABASE_URL to your local database and generate BETTER_AUTH_SECRET.
